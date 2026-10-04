@@ -40,6 +40,12 @@ AI 会自动识别并返回 **完整提示词原文**（可逐字复制使用）
 
 打开技能包内的 `gallery/index.html`（双击即可，无需联网）：
 
+![画廊主界面：127 条提示词按分类浏览](docs/screenshots/01-gallery-home.jpg)
+
+![详情弹层：大图 + 完整提示词 + 一键复制](docs/screenshots/02-detail-modal.jpg)
+
+![编号搜索：输入 CA-043 自动匹配](docs/screenshots/03-number-search.jpg)
+
 - 按分类/搜索浏览 127 张效果图（3:4 竖版）
 - 点击卡片弹出详情：大图 + 完整提示词 + 一键复制
 - 搜索框直接输编号（如 `CA-043`、`043`）自动匹配
