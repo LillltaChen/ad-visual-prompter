@@ -26,7 +26,7 @@ def main() -> None:
         tpl = esc(it.get("template") or "").replace("\n", "<br>")
         tpl_block = f'<div class="tpl"><div class="tpl-tag">可变量模板</div><div class="tpl-body">{tpl}</div></div>' if tpl else ""
         link = f'<a class="link" href="{esc(it["links"])}" target="_blank" rel="noopener">参考链接 ↗</a>' if it.get("links") else ""
-        cards.append(f"""<div class="card" data-cat="{esc(it['category'])}" data-text="{esc((it['title'] + ' ' + it['prompt']).lower())}">
+        cards.append(f"""<div class="card" data-prefix="{esc(it['number'].split('-')[0])}" data-cat="{esc(it['category'])}" data-text="{esc((it['title'] + ' ' + it['prompt']).lower())}">
   <div class="card-head"><span class="num">{esc(it['number'])}</span><span class="cat">{esc(it['category'])}</span></div>
   <div class="title">{esc(it['title'])}</div>
   <details><summary>查看完整提示词</summary><div class="prompt">{prompt_esc}</div>{tpl_block}{link}</details>
@@ -55,7 +55,7 @@ def main() -> None:
   function apply(){{
     var kw=search.value.trim().toLowerCase();
     cards.forEach(function(c){{
-      var ok=(cur==='all'||c.getAttribute('data-cat')===cur)&&(!kw||c.getAttribute('data-text').indexOf(kw)>=0);
+      var ok=(cur==='all'||c.getAttribute('data-prefix')===cur)&&(!kw||c.getAttribute('data-text').indexOf(kw)>=0);
       c.style.display=ok?'':'none';
     }});
   }}
