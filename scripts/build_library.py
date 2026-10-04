@@ -51,7 +51,15 @@ def main() -> None:
 <div style="width:100%;box-sizing:border-box;background:#f6f8fb;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:24px 20px;color:#1a2333;">
   <div style="font-size:20px;font-weight:700;">AI 广告视觉提示词库 · 编号画廊</div>
   <div style="font-size:13px;color:#5a6b85;margin:4px 0 16px;">{len(items)} 条广告生图提示词 · 来源：飞书多维表格「使用 Image 2.5」@ AI 广告视觉 作品合集 · 点击「查看完整提示词」复制原文</div>
-  <input id="search" type="text" placeholder="搜索标题或提示词关键词…" style="width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #c9d4e4;border-radius:8px;margin-bottom:12px;">
+  <div style="display:flex;gap:10px;align-items:stretch;margin-bottom:12px;">
+    <input id="search" type="text" placeholder="搜索标题或提示词关键词…" style="flex:1;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #c9d4e4;border-radius:8px;">
+    <div style="display:flex;align-items:center;gap:4px;background:#fff;border:1px solid #c9d4e4;border-radius:8px;padding:4px;flex-shrink:0;">
+      <span style="font-size:12px;color:#5a6b85;padding:0 6px;">尺寸</span>
+      <button class="size-btn" data-size="s">小</button>
+      <button class="size-btn" data-size="m">中</button>
+      <button class="size-btn" data-size="l">大</button>
+    </div>
+  </div>
   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">{tabs}</div>
   <div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;">{''.join(cards)}</div>
   <div style="font-size:12px;color:#8a97ad;margin-top:16px;">提示词为原文逐字收录，含具体品牌与版式细节；出图时建议直接使用原文。缩略图为该编号在飞书表格中的效果图（本地缓存）。</div>
@@ -69,12 +77,22 @@ def main() -> None:
   .tpl-tag{{font-size:12px;font-weight:700;color:#c05621;margin-bottom:4px;}}
   .tpl-body{{font-size:13px;color:#33415a;white-space:pre-line;}}
   .link{{font-size:12px;color:#3d7a2e;}}
+  .size-btn{{font-size:13px;padding:5px 12px;border:1px solid transparent;background:transparent;border-radius:6px;color:#5a6b85;cursor:pointer;}}
+  .size-btn.active{{background:#2047f2;color:#fff;}}
 </style>
 <script>
 (function(){{
   var grid=document.getElementById('grid'),search=document.getElementById('search'),cards=[].slice.call(grid.querySelectorAll('.card'));
   var cur='PA';
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var sizes={{'s':'repeat(auto-fill,minmax(180px,1fr))','m':'repeat(auto-fill,minmax(280px,1fr))','l':'repeat(auto-fill,minmax(400px,1fr))'}};
+  var sizeBtns=[].slice.call(document.querySelectorAll('.size-btn'));
+  var sz=localStorage.getItem('gal_size')||'m';
+  function setSize(s){{
+    sz=s;grid.style.gridTemplateColumns=sizes[s];
+    sizeBtns.forEach(function(b){{b.classList.toggle('active',b.getAttribute('data-size')===s);}});
+    try{{localStorage.setItem('gal_size',s);}}catch(e){{}}
+  }}
   function apply(){{
     var kw=search.value.trim().toLowerCase();
     cards.forEach(function(c){{
@@ -88,8 +106,11 @@ def main() -> None:
       cur=t.getAttribute('data-filter');apply();
     }});
   }});
+  sizeBtns.forEach(function(b){{
+    b.addEventListener('click',function(){{setSize(b.getAttribute('data-size'));}});
+  }});
   search.addEventListener('input',apply);
-  apply();
+  setSize(sz);apply();
 }})();
 </script>
 </html>
