@@ -15,18 +15,26 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
+def _extract_link(raw: str) -> str:
+    """从飞书导出的 Markdown 链接 `[text](url)`（或纯 URL）中提取真实 URL。"""
+    import re
+    m = re.search(r"\]\(\s*([^)]+?)\s*\)", raw)
+    if m:
+        return m.group(1).strip()
+    raw = raw.strip()
+    if raw.startswith("http://") or raw.startswith("https://"):
+        return raw
+    return ""
+
+
 def _prompt_html(raw: str) -> str:
-    """把提示词原文按【章节】分段渲染为带层级的内联 HTML（文本逐字保留，仅加视觉分段）。"""
+    """把提示词原文按行渲染为统一段落（无章节高亮，全库样式一致；文本逐字保留）。"""
     parts = []
     for line in raw.splitlines():
         line = line.rstrip()
         if not line.strip():
             continue
-        s = esc(line)
-        if line.strip().startswith("【"):
-            parts.append(f'<div class="sec-title">{s}</div>')
-        else:
-            parts.append(f'<div class="p-line">{s}</div>')
+        parts.append(f'<div class="p-line">{esc(line)}</div>')
     return "".join(parts) if parts else esc(raw)
 
 
@@ -64,7 +72,7 @@ def main() -> None:
         data.append({
             "number": it["number"], "title": it["title"], "category": it["category"],
             "prompt": prompt_raw, "template": it.get("template") or "",
-            "links": it.get("links") or "", "img": img_rel,
+            "links": _extract_link(it.get("links") or ""), "img": img_rel,
             "prompt_html": _prompt_html(prompt_raw),
         })
     data_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
@@ -179,10 +187,8 @@ def main() -> None:
   .modal-fig img{{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;display:block;}}
   .modal-info{{flex:1;min-width:0;display:flex;flex-direction:column;padding:16px 18px 18px;gap:10px;overflow:hidden;}}
   .prompt-wrap{{position:relative;flex:1;min-height:0;background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;}}
-  .prompt-scroll{{height:100%;overflow-y:auto;padding:14px 16px;box-sizing:border-box;font-size:13px;line-height:1.7;color:#334155;word-break:break-word;}}
-  .sec-title{{font-weight:700;color:#1e40af;font-size:13px;margin:16px 0 6px;letter-spacing:.02em;}}
-  .sec-title:first-child{{margin-top:0;}}
-  .p-line{{margin-bottom:9px;}}
+  .prompt-scroll{{height:100%;overflow-y:auto;padding:14px 16px;box-sizing:border-box;font-size:13px;line-height:1.75;color:#334155;word-break:break-word;}}
+  .p-line{{margin-bottom:10px;}}
   .tpl{{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;}}
   .tpl-tag{{font-size:11px;font-weight:700;color:#b45309;margin-bottom:4px;}}
   .tpl-body{{font-size:13px;color:#475569;white-space:pre-line;}}
