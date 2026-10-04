@@ -56,7 +56,7 @@ def main() -> None:
                 img_html = ""
         else:
             img_html = ""
-        cards.append(f"""<div class="card" data-prefix="{esc(it['number'].split('-')[0])}" data-cat="{esc(it['category'])}" data-text="{esc((it['title'] + ' ' + it['prompt']).lower())}" data-num="{esc(it['number'])}">
+        cards.append(f"""<div class="card" data-prefix="{esc(it['number'].split('-')[0])}" data-cat="{esc(it['category'])}" data-text="{esc((it['number'] + ' ' + it['category'] + ' ' + it['title'] + ' ' + it['prompt']).lower())}" data-num="{esc(it['number'])}">
   {img_html}<div class="card-head"><span class="num">{esc(it['number'])}</span><span class="cat">{esc(it['category'])}</span></div>
   <div class="title">{esc(it['title'])}</div>
   <button class="view-btn" type="button">查看详情 · 复制提示词</button>
@@ -152,6 +152,7 @@ def main() -> None:
   #search:focus{{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.15);}}
   .card{{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:12px;box-sizing:border-box;box-shadow:0 1px 2px rgba(15,23,42,.05);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;display:flex;flex-direction:column;cursor:pointer;}}
   .card:hover{{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.10);border-color:#c7d2fe;}}
+  .card.matched{{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.35),0 8px 20px rgba(15,23,42,.08);}}
   .thumb-wrap{{position:relative;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#eef2f7;}}
   .thumb{{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .3s ease;}}
   .card:hover .thumb{{transform:scale(1.03);}}
@@ -212,8 +213,20 @@ def main() -> None:
   }}
   function apply(){{
     var kw=search.value.trim().toLowerCase();
+    // 编号模式：输入形如 pa-001 / pa001 / 001 时全局匹配编号，忽略当前分类
+    var m=kw.match(/^([a-z]{{1,2}})?\-?(\d{{1,3}})?$/);
+    var numMode=kw&&m&&(m[1]||m[2]);
     cards.forEach(function(c){{
-      var ok=(cur==='all'||c.getAttribute('data-prefix')===cur)&&(!kw||c.getAttribute('data-text').indexOf(kw)>=0);
+      var ok;
+      if(numMode){{
+        var n=c.getAttribute('data-num').toLowerCase().replace('-','');
+        var k=(m[1]||'')+(m[2]||'');
+        ok=!k||n.indexOf(k)>=0;
+        c.classList.toggle('matched',ok);
+      }}else{{
+        c.classList.remove('matched');
+        ok=(cur==='all'||c.getAttribute('data-prefix')===cur)&&(!kw||c.getAttribute('data-text').indexOf(kw)>=0);
+      }}
       c.style.display=ok?'':'none';
     }});
   }}
@@ -286,6 +299,8 @@ def main() -> None:
     }}
   }});
   if(location.hash&&byNum[location.hash.slice(1)])openModal(location.hash.slice(1));
+  var qs=new URLSearchParams(location.search);
+  if(qs.get('q')){{search.value=qs.get('q');}}
   setSize(sz);apply();
 }})();
 </script>
