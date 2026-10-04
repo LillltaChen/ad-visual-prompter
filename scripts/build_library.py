@@ -22,24 +22,36 @@ def main() -> None:
     gallery_root = ROOT / "assets" / "gallery"
 
     cards = []
+    data = []
     for it in items:
-        prompt_esc = esc(it["prompt"]).replace("\n", "<br>")
+        prompt_raw = it["prompt"]
+        prompt_esc = esc(prompt_raw).replace("\n", "<br>")
         tpl = esc(it.get("template") or "").replace("\n", "<br>")
         tpl_block = f'<div class="tpl"><div class="tpl-tag">可变量模板</div><div class="tpl-body">{tpl}</div></div>' if tpl else ""
         link = f'<a class="link" href="{esc(it["links"])}" target="_blank" rel="noopener">参考链接 ↗</a>' if it.get("links") else ""
-        # 效果图缩略图：assets/gallery/{编号}/ 下第一张图
-        img_html = ""
+        # 效果图：assets/gallery/{编号}/ 下第一张图
+        img_rel = ""
         img_dir = gallery_root / it["number"]
         if img_dir.is_dir():
             imgs = sorted(p for p in img_dir.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"})
             if imgs:
-                rel = f"../assets/gallery/{it['number']}/{imgs[0].name}"
-                img_html = f'<div class="thumb-wrap"><img class="thumb" loading="lazy" src="{esc(rel)}" alt="{esc(it["number"])} 效果图"></div>'
-        cards.append(f"""<div class="card" data-prefix="{esc(it['number'].split('-')[0])}" data-cat="{esc(it['category'])}" data-text="{esc((it['title'] + ' ' + it['prompt']).lower())}">
+                img_rel = f"../assets/gallery/{it['number']}/{imgs[0].name}"
+                img_html = f'<div class="thumb-wrap"><img class="thumb" loading="lazy" src="{esc(img_rel)}" alt="{esc(it["number"])} 效果图"></div>'
+            else:
+                img_html = ""
+        else:
+            img_html = ""
+        cards.append(f"""<div class="card" data-prefix="{esc(it['number'].split('-')[0])}" data-cat="{esc(it['category'])}" data-text="{esc((it['title'] + ' ' + it['prompt']).lower())}" data-num="{esc(it['number'])}">
   {img_html}<div class="card-head"><span class="num">{esc(it['number'])}</span><span class="cat">{esc(it['category'])}</span></div>
   <div class="title">{esc(it['title'])}</div>
-  <details><summary>查看完整提示词</summary><div class="prompt">{prompt_esc}</div>{tpl_block}{link}</details>
+  <button class="view-btn" type="button">查看详情 · 复制提示词</button>
 </div>""")
+        data.append({
+            "number": it["number"], "title": it["title"], "category": it["category"],
+            "prompt": prompt_raw, "template": it.get("template") or "",
+            "links": it.get("links") or "", "img": img_rel,
+        })
+    data_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
 
     tabs = '<button class="tab" data-filter="all">全部（{}）</button>'.format(len(items)) + "".join(
         f'<button class="tab{" active" if p == "PA" else ""}" data-filter="{p}">{p} · {c["name"]}（{c["count"]}）</button>'
@@ -87,7 +99,31 @@ def main() -> None:
       <span>技能：ad-visual-prompter</span>
     </div>
   </main>
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div class="modal-meta">
+          <span class="num" id="mNum"></span>
+          <span class="cat" id="mCat"></span>
+        </div>
+        <span class="modal-title" id="mTitle"></span>
+        <button class="close-btn" id="mClose" type="button" aria-label="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-fig"><img id="mImg" alt="效果图"></div>
+        <div class="modal-info">
+          <div class="prompt-wrap">
+            <button class="copy-btn" id="mCopy" type="button">复制提示词</button>
+            <div class="prompt-scroll" id="mPrompt"></div>
+          </div>
+          <div id="mTpl" class="tpl" style="display:none;"></div>
+          <div id="mLink" style="font-size:13px;margin-top:2px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<script id="gal-data" type="application/json">{data_json}</script>
 <style>
   .tab{{font-size:13px;font-weight:600;padding:7px 13px;border:1px solid transparent;border-radius:999px;background:#fff;color:#475569;cursor:pointer;transition:all .18s ease;box-shadow:0 1px 2px rgba(15,23,42,.05);}}
   .tab:hover{{color:#1e40af;background:#eff6ff;}}
@@ -98,7 +134,7 @@ def main() -> None:
   .seg .size-btn:hover{{color:#1e40af;}}
   .seg .size-btn.active{{background:#fff;color:#1d4ed8;box-shadow:0 1px 3px rgba(15,23,42,.14);border-color:#e2e8f0;}}
   #search:focus{{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.15);}}
-  .card{{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:12px;box-sizing:border-box;box-shadow:0 1px 2px rgba(15,23,42,.05);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;display:flex;flex-direction:column;}}
+  .card{{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:12px;box-sizing:border-box;box-shadow:0 1px 2px rgba(15,23,42,.05);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;display:flex;flex-direction:column;cursor:pointer;}}
   .card:hover{{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.10);border-color:#c7d2fe;}}
   .thumb-wrap{{position:relative;border-radius:10px;overflow:hidden;margin-bottom:10px;background:#eef2f7;}}
   .thumb{{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .3s ease;}}
@@ -106,23 +142,40 @@ def main() -> None:
   .card-head{{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;}}
   .num{{font-weight:700;color:#1d4ed8;font-size:13px;font-variant-numeric:tabular-nums;letter-spacing:.02em;}}
   .cat{{font-size:11px;font-weight:600;color:#4338ca;background:#eef2ff;border:1px solid #e0e7ff;border-radius:6px;padding:2px 8px;white-space:nowrap;}}
-  .title{{font-size:14px;font-weight:600;color:#0f172a;line-height:1.45;margin-bottom:8px;}}
-  details{{margin-top:auto;}}
-  details summary{{font-size:13px;font-weight:600;color:#1d4ed8;cursor:pointer;user-select:none;list-style:none;}}
-  details summary::before{{content:'+';display:inline-block;width:18px;height:18px;line-height:16px;text-align:center;border-radius:5px;background:#eff6ff;color:#1d4ed8;margin-right:6px;font-weight:700;transition:transform .18s ease;}}
-  details[open] summary::before{{transform:rotate(45deg);background:#1d4ed8;color:#fff;}}
-  details summary:hover{{color:#1e40af;}}
-  .prompt{{font-size:13px;line-height:1.7;color:#334155;margin-top:10px;white-space:pre-line;word-break:break-word;background:#f8fafc;border:1px solid #eef2f7;border-radius:10px;padding:10px 12px;}}
-  .tpl{{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;margin-top:10px;}}
+  .title{{font-size:14px;font-weight:600;color:#0f172a;line-height:1.45;margin-bottom:10px;}}
+  .view-btn{{margin-top:auto;font-size:13px;font-weight:600;color:#1d4ed8;background:#eff6ff;border:1px solid #dbeafe;border-radius:9px;padding:8px 10px;cursor:pointer;transition:all .15s ease;}}
+  .view-btn:hover{{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}}
+  .overlay{{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s ease;}}
+  .overlay.show{{opacity:1;pointer-events:auto;}}
+  .modal{{background:#fff;border-radius:18px;max-width:920px;width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(15,23,42,.30);transform:translateY(14px) scale(.98);transition:transform .22s ease;}}
+  .overlay.show .modal{{transform:none;}}
+  .modal-head{{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #eef2f7;flex-shrink:0;}}
+  .modal-meta{{display:flex;gap:8px;align-items:center;flex-shrink:0;}}
+  .modal-title{{font-size:16px;font-weight:700;color:#0f172a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}}
+  .close-btn{{flex-shrink:0;width:32px;height:32px;border:none;border-radius:9px;background:#f1f5f9;color:#475569;font-size:15px;cursor:pointer;transition:all .15s ease;}}
+  .close-btn:hover{{background:#fee2e2;color:#b91c1c;}}
+  .modal-body{{display:flex;flex:1;min-height:0;}}
+  .modal-fig{{flex:0 0 42%;background:#eef2f7;display:flex;align-items:stretch;overflow:hidden;}}
+  .modal-fig img{{width:100%;height:100%;object-fit:cover;display:block;}}
+  .modal-info{{flex:1;min-width:0;display:flex;flex-direction:column;padding:16px 18px 18px;gap:10px;overflow:hidden;}}
+  .prompt-wrap{{position:relative;flex:1;min-height:0;background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;}}
+  .copy-btn{{position:absolute;top:10px;right:10px;z-index:2;font-size:12px;font-weight:700;color:#fff;background:#1d4ed8;border:none;border-radius:8px;padding:7px 12px;cursor:pointer;box-shadow:0 2px 6px rgba(29,78,216,.35);transition:all .15s ease;}}
+  .copy-btn:hover{{background:#1e40af;}}
+  .copy-btn.copied{{background:#15803d;}}
+  .prompt-scroll{{height:100%;overflow-y:auto;padding:14px 14px 14px;box-sizing:border-box;font-size:13px;line-height:1.75;color:#334155;white-space:pre-line;word-break:break-word;}}
+  .tpl{{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;}}
   .tpl-tag{{font-size:11px;font-weight:700;color:#b45309;margin-bottom:4px;}}
   .tpl-body{{font-size:13px;color:#475569;white-space:pre-line;}}
-  .link{{font-size:12px;font-weight:600;color:#15803d;margin-top:8px;display:inline-block;}}
+  .link{{font-size:12px;font-weight:600;color:#15803d;}}
   @media (max-width:640px){{
     .hero{{padding:32px 18px 26px;}}
     .toolbar{{padding:12px 18px;}}
     main{{padding:16px 18px 8px;}}
     .toolbar > div > div:first-child{{flex-wrap:wrap;}}
     #search{{flex:1 1 100%;}}
+    .modal{{max-height:92vh;}}
+    .modal-body{{flex-direction:column;}}
+    .modal-fig{{flex:none;max-height:34vh;}}
   }}
 </style>
 <script>
@@ -155,6 +208,65 @@ def main() -> None:
     b.addEventListener('click',function(){{setSize(b.getAttribute('data-size'));}});
   }});
   search.addEventListener('input',apply);
+
+  // 详情弹层
+  var DATA;
+  try{{DATA=JSON.parse(document.getElementById('gal-data').textContent);}}catch(e){{DATA=[];}}
+  var byNum={{}};DATA.forEach(function(d){{byNum[d.number]=d;}});
+  var overlay=document.getElementById('overlay'),mImg=document.getElementById('mImg'),
+      mNum=document.getElementById('mNum'),mCat=document.getElementById('mCat'),
+      mTitle=document.getElementById('mTitle'),mPrompt=document.getElementById('mPrompt'),
+      mTpl=document.getElementById('mTpl'),mLink=document.getElementById('mLink'),
+      mCopy=document.getElementById('mCopy'),mClose=document.getElementById('mClose');
+  function fillText(el,html){{
+    if(!el)return;
+    var wrap=document.createElement('div');wrap.innerHTML=html||'';el.textContent=wrap.textContent||'';
+  }}
+  function openModal(num){{
+    var d=byNum[num];if(!d)return;
+    mNum.textContent=d.number;mCat.textContent=d.category;mTitle.textContent=d.title;
+    if(d.img){{mImg.src=d.img;mImg.style.display='block';}}else{{mImg.removeAttribute('src');mImg.style.display='none';}}
+    fillText(mPrompt,d.prompt);
+    if(d.template){{
+      mTpl.style.display='';mTpl.innerHTML='<div class="tpl-tag">可变量模板</div><div class="tpl-body"></div>';
+      fillText(mTpl.querySelector('.tpl-body'),d.template);
+    }}else{{mTpl.style.display='none';mTpl.innerHTML='';}}
+    mLink.innerHTML=d.links?'<a class="link" href="'+d.links+'" target="_blank" rel="noopener">参考链接 ↗</a>':'';
+    mCopy.textContent='复制提示词';mCopy.classList.remove('copied');
+    overlay.classList.add('show');overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    try{{history.replaceState(null,'','#'+num);}}catch(e){{}}
+  }}
+  function closeModal(){{
+    overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    try{{history.replaceState(null,'',location.pathname+location.search);}}catch(e){{}}
+  }}
+  cards.forEach(function(c){{
+    c.addEventListener('click',function(){{openModal(c.getAttribute('data-num'));}});
+  }});
+  mClose.addEventListener('click',closeModal);
+  overlay.addEventListener('click',function(e){{if(e.target===overlay)closeModal();}});
+  document.addEventListener('keydown',function(e){{if(e.key==='Escape')closeModal();}});
+  mCopy.addEventListener('click',function(){{
+    var d=byNum[mNum.textContent];if(!d)return;
+    var done=function(){{
+      mCopy.textContent='已复制 ✓';mCopy.classList.add('copied');
+      setTimeout(function(){{mCopy.textContent='复制提示词';mCopy.classList.remove('copied');}},2000);
+    }};
+    if(navigator.clipboard&&window.isSecureContext){{
+      navigator.clipboard.writeText(d.prompt).then(done,function(){{
+        var ta=document.createElement('textarea');ta.value=d.prompt;
+        ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+        ta.select();try{{document.execCommand('copy');done();}}catch(err){{}}ta.remove();
+      }});
+    }}else{{
+      var ta=document.createElement('textarea');ta.value=d.prompt;
+      ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+      ta.select();try{{document.execCommand('copy');done();}}catch(err){{}}ta.remove();
+    }}
+  }});
+  if(location.hash&&byNum[location.hash.slice(1)])openModal(location.hash.slice(1));
   setSize(sz);apply();
 }})();
 </script>
