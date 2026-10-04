@@ -15,6 +15,21 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
+def _prompt_html(raw: str) -> str:
+    """把提示词原文按【章节】分段渲染为带层级的内联 HTML（文本逐字保留，仅加视觉分段）。"""
+    parts = []
+    for line in raw.splitlines():
+        line = line.rstrip()
+        if not line.strip():
+            continue
+        s = esc(line)
+        if line.strip().startswith("【"):
+            parts.append(f'<div class="sec-title">{s}</div>')
+        else:
+            parts.append(f'<div class="p-line">{s}</div>')
+    return "".join(parts) if parts else esc(raw)
+
+
 def main() -> None:
     lib = json.loads(LIB.read_text(encoding="utf-8"))
     items = lib["items"]
@@ -50,6 +65,7 @@ def main() -> None:
             "number": it["number"], "title": it["title"], "category": it["category"],
             "prompt": prompt_raw, "template": it.get("template") or "",
             "links": it.get("links") or "", "img": img_rel,
+            "prompt_html": _prompt_html(prompt_raw),
         })
     data_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
 
@@ -107,13 +123,13 @@ def main() -> None:
           <span class="cat" id="mCat"></span>
         </div>
         <span class="modal-title" id="mTitle"></span>
+        <button class="copy-btn" id="mCopy" type="button">复制提示词</button>
         <button class="close-btn" id="mClose" type="button" aria-label="关闭">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-fig"><img id="mImg" alt="效果图"></div>
         <div class="modal-info">
           <div class="prompt-wrap">
-            <button class="copy-btn" id="mCopy" type="button">复制提示词</button>
             <div class="prompt-scroll" id="mPrompt"></div>
           </div>
           <div id="mTpl" class="tpl" style="display:none;"></div>
@@ -149,9 +165,12 @@ def main() -> None:
   .overlay.show{{opacity:1;pointer-events:auto;}}
   .modal{{background:#fff;border-radius:18px;max-width:920px;width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(15,23,42,.30);transform:translateY(14px) scale(.98);transition:transform .22s ease;}}
   .overlay.show .modal{{transform:none;}}
-  .modal-head{{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #eef2f7;flex-shrink:0;}}
+  .modal-head{{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #eef2f7;flex-shrink:0;}}
   .modal-meta{{display:flex;gap:8px;align-items:center;flex-shrink:0;}}
-  .modal-title{{font-size:16px;font-weight:700;color:#0f172a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}}
+  .modal-title{{font-size:15px;font-weight:700;color:#0f172a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}}
+  .copy-btn{{flex-shrink:0;font-size:12px;font-weight:700;color:#fff;background:#1d4ed8;border:none;border-radius:8px;padding:8px 13px;cursor:pointer;box-shadow:0 2px 6px rgba(29,78,216,.35);transition:all .15s ease;}}
+  .copy-btn:hover{{background:#1e40af;}}
+  .copy-btn.copied{{background:#15803d;}}
   .close-btn{{flex-shrink:0;width:32px;height:32px;border:none;border-radius:9px;background:#f1f5f9;color:#475569;font-size:15px;cursor:pointer;transition:all .15s ease;}}
   .close-btn:hover{{background:#fee2e2;color:#b91c1c;}}
   .modal-body{{display:flex;flex:1;min-height:0;}}
@@ -159,10 +178,10 @@ def main() -> None:
   .modal-fig img{{width:100%;height:100%;object-fit:cover;display:block;}}
   .modal-info{{flex:1;min-width:0;display:flex;flex-direction:column;padding:16px 18px 18px;gap:10px;overflow:hidden;}}
   .prompt-wrap{{position:relative;flex:1;min-height:0;background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;}}
-  .copy-btn{{position:absolute;top:10px;right:10px;z-index:2;font-size:12px;font-weight:700;color:#fff;background:#1d4ed8;border:none;border-radius:8px;padding:7px 12px;cursor:pointer;box-shadow:0 2px 6px rgba(29,78,216,.35);transition:all .15s ease;}}
-  .copy-btn:hover{{background:#1e40af;}}
-  .copy-btn.copied{{background:#15803d;}}
-  .prompt-scroll{{height:100%;overflow-y:auto;padding:14px 14px 14px;box-sizing:border-box;font-size:13px;line-height:1.75;color:#334155;white-space:pre-line;word-break:break-word;}}
+  .prompt-scroll{{height:100%;overflow-y:auto;padding:14px 16px;box-sizing:border-box;font-size:13px;line-height:1.7;color:#334155;word-break:break-word;}}
+  .sec-title{{font-weight:700;color:#1e40af;font-size:13px;margin:16px 0 6px;letter-spacing:.02em;}}
+  .sec-title:first-child{{margin-top:0;}}
+  .p-line{{margin-bottom:9px;}}
   .tpl{{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;}}
   .tpl-tag{{font-size:11px;font-weight:700;color:#b45309;margin-bottom:4px;}}
   .tpl-body{{font-size:13px;color:#475569;white-space:pre-line;}}
@@ -226,7 +245,7 @@ def main() -> None:
     var d=byNum[num];if(!d)return;
     mNum.textContent=d.number;mCat.textContent=d.category;mTitle.textContent=d.title;
     if(d.img){{mImg.src=d.img;mImg.style.display='block';}}else{{mImg.removeAttribute('src');mImg.style.display='none';}}
-    fillText(mPrompt,d.prompt);
+    mPrompt.innerHTML=d.prompt_html||'';
     if(d.template){{
       mTpl.style.display='';mTpl.innerHTML='<div class="tpl-tag">可变量模板</div><div class="tpl-body"></div>';
       fillText(mTpl.querySelector('.tpl-body'),d.template);
