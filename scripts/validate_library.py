@@ -38,7 +38,7 @@ def main() -> None:
         if prefix not in PREFIX_ORDER:
             errors.append(f"{num} 前缀非法: {prefix}")
 
-    # 编号连续性：每个前缀内部 001 起连续
+    # 编号连续性：每个前缀内部 001 起连续（仅 WARN：编号先到先得，删除条目后允许空洞，不重排）
     by_prefix: dict[str, list[str]] = {}
     for it in items:
         p, seq = it["number"].split("-")
@@ -47,7 +47,7 @@ def main() -> None:
         seqs = sorted(by_prefix.get(p, []))
         expected = list(range(1, len(seqs) + 1))
         if seqs != expected:
-            errors.append(f"{p} 编号不连续: {seqs}")
+            warnings.append(f"{p} 编号不连续(允许空洞): {seqs}")
 
     # 分类计数与 categories 元数据核对
     from collections import Counter
