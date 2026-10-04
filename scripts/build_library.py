@@ -58,7 +58,7 @@ def main() -> None:
 </div>
 <style>
   .card{{background:#fff;border:1px solid #d5deea;border-radius:10px;padding:12px;box-sizing:border-box;}}
-  .thumb{{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:8px;background:#eef2f6;}}
+  .thumb{{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;margin-bottom:8px;background:#eef2f6;}}
   .card-head{{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}}
   .num{{font-weight:700;color:#2047f2;font-size:13px;}}
   .cat{{font-size:12px;color:#5a6b85;background:#eef2ff;border-radius:4px;padding:2px 6px;}}
