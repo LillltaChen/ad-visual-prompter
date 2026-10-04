@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""从 prompts.json 生成画廊 gallery/index.html（自包含静态页面）。
+用法: python3 build_library.py
+"""
+from __future__ import annotations
+import html, json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+LIB = ROOT / "references" / "prompts.json"
+OUT = ROOT / "gallery" / "index.html"
+
+
+def esc(s: str) -> str:
+    return html.escape(s, quote=True)
+
+
+def main() -> None:
+    lib = json.loads(LIB.read_text(encoding="utf-8"))
+    items = lib["items"]
+    cats = lib["categories"]
+
+    cards = []
+    for it in items:
+        prompt_esc = esc(it["prompt"]).replace("\n", "<br>")
+        tpl = esc(it.get("template") or "").replace("\n", "<br>")
+        tpl_block = f'<div class="tpl"><div class="tpl-tag">可变量模板</div><div class="tpl-body">{tpl}</div></div>' if tpl else ""
+        link = f'<a class="link" href="{esc(it["links"])}" target="_blank" rel="noopener">参考链接 ↗</a>' if it.get("links") else ""
+        cards.append(f"""<div class="card" data-cat="{esc(it['category'])}" data-text="{esc((it['title'] + ' ' + it['prompt']).lower())}">
+  <div class="card-head"><span class="num">{esc(it['number'])}</span><span class="cat">{esc(it['category'])}</span></div>
+  <div class="title">{esc(it['title'])}</div>
+  <details><summary>查看完整提示词</summary><div class="prompt">{prompt_esc}</div>{tpl_block}{link}</details>
+</div>""")
+
+    tabs = "".join(
+        f'<button class="tab{" active" if p == "PA" else ""}" data-filter="{p}">{p} · {c["name"]}（{c["count"]}）</button>'
+        for p, c in cats.items()
+    ) + '<button class="tab" data-filter="all">全部（{}）</button>'.format(len(items))
+
+    html_doc = f"""<html style="margin:0;padding:0;">
+<title>AI 广告视觉提示词库 · 编号画廊</title>
+<div style="width:100%;box-sizing:border-box;background:#f6f8fb;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;padding:24px 20px;color:#1a2333;">
+  <div style="font-size:20px;font-weight:700;">AI 广告视觉提示词库 · 编号画廊</div>
+  <div style="font-size:13px;color:#5a6b85;margin:4px 0 16px;">{len(items)} 条广告生图提示词 · 来源：飞书多维表格「使用 Image 2.5」@ AI 广告视觉 作品合集 · 点击「查看完整提示词」复制原文</div>
+  <input id="search" type="text" placeholder="搜索标题或提示词关键词…" style="width:100%;box-sizing:border-box;padding:10px 12px;font-size:14px;border:1px solid #c9d4e4;border-radius:8px;margin-bottom:12px;">
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">{tabs}</div>
+  <div id="grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;">{''.join(cards)}</div>
+  <div style="font-size:12px;color:#8a97ad;margin-top:16px;">提示词为原文逐字收录，含具体品牌与版式细节；出图时建议直接使用原文。</div>
+</div>
+<script>
+(function(){{
+  var grid=document.getElementById('grid'),search=document.getElementById('search'),cards=[].slice.call(grid.querySelectorAll('.card'));
+  var cur='PA';
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function apply(){{
+    var kw=search.value.trim().toLowerCase();
+    cards.forEach(function(c){{
+      var ok=(cur==='all'||c.getAttribute('data-cat')===cur)&&(!kw||c.getAttribute('data-text').indexOf(kw)>=0);
+      c.style.display=ok?'':'none';
+    }});
+  }}
+  tabs.forEach(function(t){{
+    t.addEventListener('click',function(){{
+      tabs.forEach(function(x){{x.classList.remove('active');}});t.classList.add('active');
+      cur=t.getAttribute('data-filter');apply();
+    }});
+  }});
+  search.addEventListener('input',apply);
+  apply();
+}})();
+</script>
+</html>
+"""
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(html_doc, encoding="utf-8")
+    print(f"已生成画廊: {OUT}（{len(items)} 条）")
+
+
+if __name__ == "__main__":
+    main()
