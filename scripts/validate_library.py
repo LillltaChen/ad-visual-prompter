@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LIB = ROOT / "references" / "prompts.json"
 
-PREFIX_ORDER = ["PA", "CA", "BV", "MK", "EC", "NA"]
+PREFIX_ORDER = ["PA", "CA", "BV", "MK", "EC"]
 
 
 def main() -> None:

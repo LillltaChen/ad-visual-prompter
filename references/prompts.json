@@ -6,15 +6,15 @@
   "categories": {
     "PA": {
       "name": "产品展示",
-      "count": 76
+      "count": 81
     },
     "CA": {
       "name": "内容创作",
-      "count": 33
+      "count": 32
     },
     "BV": {
       "name": "品牌视觉",
-      "count": 8
+      "count": 6
     },
     "MK": {
       "name": "营销推广",
@@ -22,11 +22,7 @@
     },
     "EC": {
       "name": "电商运营",
-      "count": 4
-    },
-    "NA": {
-      "name": "无匹配类别",
-      "count": 1
+      "count": 3
     }
   },
   "items": [
@@ -273,8 +269,8 @@
       "record_id": "recvrdDaSjd8Bm"
     },
     {
-      "number": "EC-001",
-      "category": "电商运营",
+      "number": "CA-073",
+      "category": "内容创作",
       "category_id": "EC",
       "title": "鱼眼镜头仰拍视角海报 提示词",
       "prompt": "【中文提示词】\n一只橘色虎斑猫在温馨明亮的猫咪咖啡馆窗台上慵懒伸展，前爪搭在玻璃上形成可爱肉垫特写，鱼眼镜头平视微仰视角，前爪夸张放大，背景虚化可见其他英短蓝猫和布偶猫在猫爬架上玩耍，远处有木质猫架和暖色落地灯。主标题\"治愈时光\"奶油白粗体手写毛笔字，副标题\"喵享每一刻！\"暖橙色粗体手写毛笔字，左上角米色标签带猫爪图标\"温柔陪伴每一天\"，右上角对话框气泡\"猫咪咖啡馆 治愈加倍\"，右侧珊瑚粉标签\"释放慵懒\"米色标签\"尽情撒娇\"，左下角三个白色圆形图标配暖色文字\"天然材质 安心接触\"\"耐抓耐用 品质之选\"\"互动玩具 增进感情\"，底部左侧米色弧形区域带购物车图标\"猫咪用品 一站式购齐\"珊瑚粉按钮\"满299减50\"，右下角手写体\"陪它一起 慢享生活！\"。整体暖米橙为主色调，点缀奶油白和珊瑚粉，手绘涂鸦线条装饰，气泡对话框，猫爪图标，温馨治愈氛围，电商促销海报，高饱和度明亮色调，3:4竖版比例。\n\n【英文提示词】\nA lazy orange tabby cat stretching on a bright cozy cat cafe windowsill, front paw pressed against glass showing cute paw pad close-up, fisheye lens eye-level slightly low angle, front paw exaggeratedly large in foreground, motion blur on background with British Shorthair blue cat and Ragdoll playing on cat trees, wooden cat shelves and warm floor lamp in soft bokeh. Bold cream-white hand-brushed Chinese calligraphy headline \"治愈时光\", bold warm-orange hand-brushed subheadline \"喵享每一刻！\", beige banner with cat paw icon top-left \"温柔陪伴每一天\", speech bubble top-right \"猫咪咖啡馆 治愈加倍\", coral tag \"释放慵懒\" beige tag \"尽情撒娇\" on right side, three white circular icons with warm text bottom-left \"天然材质 安心接触\" \"耐抓耐用 品质之选\" \"互动玩具 增进感情\", beige curved banner bottom-left with shopping cart icon \"猫咪用品 一站式购齐\" and coral CTA button \"满299减50\", handwritten text bottom-right \"陪它一起 慢享生活！\". Warm cream and orange dominant palette with coral and white accents, hand-drawn doodle lines, speech bubbles, cat paw icons, cozy healing atmosphere, e-commerce promotional poster, high saturation bright tones, 3:4 vertical aspect ratio, commercial photography style, sharp focus on main cat, shallow depth of field.",
@@ -607,8 +603,8 @@
       "record_id": "recvsnFLegiW9N"
     },
     {
-      "number": "CA-007",
-      "category": "内容创作",
+      "number": "PA-078",
+      "category": "产品展示",
       "category_id": "CA",
       "title": "产品 掌心托举商品广告海报 提示词",
       "prompt": "围绕任意主题对象组织成明亮广告视觉：让大面积开阔天空或同等通透的户外场域占据主要空间，背景干净、高明度、中高饱和，带轻微自然颗粒和柔软远处云影，只服务于空气感与留白，不加入复杂景物。主题对象被缩成精确的小型实物，放在画面中部偏下的真实手掌或主题合理的承托动作上，承托面从一侧伸入，形成平稳水平线，日光从上方照亮对象顶部并在手部下缘留下清晰阴影，实拍质感、边缘锐利、尺寸克制，让“被郑重托起”的动作成为第一眼记忆。文字系统使用纯白、高反差、无底框覆盖在天空上：上方放极大号几何无衬线英文或主题标题，字距紧、行距压缩，左上形成宽阔字块；下方放更重的中文主题名或核心卖点，左右用巨大圆括号式弧线包围，上方叠一行很小的辅助外文，底部散落极小规格说明，形成大字、微字、实物之间的清爽尺度跳跃。右侧竖排三组细线圆形图标与短标签，线条统一为白色单线，图标带斜杠、简化符号和少量小点；左下保留圆圈箭头或方向符号，像包装说明与界面按钮同时出现。色彩随主题派生：从主题中提取最清爽、最洁净的高明度背景色作为主场域，白色承担文字、图标和弧线并保持最强亮度，主题对象只用小面积固有色或标签色形成识别，承托材质保持自然暖度或主题允许的真实触感，整体情绪必须是晴朗、轻盈、卫生、直接而不冷冰。所有可读内容由新主题重新命名，保留广告说明的层级、密度和位置关系；避免把对象放大成常规产品海报，也避免让图标、文字框或背景装饰抢走托举动作的中心性。\n\n——————\n主题：夏日果茶外带饮品广告，突出一杯鲜果茶的干净清爽感\n补充：出现 3 个相关信息点，文字少一点\n画幅：竖版 3:4",
@@ -800,8 +796,8 @@
       "record_id": "recvsnQdNd0J55"
     },
     {
-      "number": "CA-033",
-      "category": "内容创作",
+      "number": "PA-079",
+      "category": "产品展示",
       "category_id": "CA",
       "title": "柔光拍摄 x 产品美图",
       "prompt": "围绕任意主题对象生成清爽生活广告视觉：画面先由近距离、柔软饱满的主题主物承担视觉重量，主物放在带有自然纹理的浅色手作承托面上，前景清晰、边缘细腻，表面保留可感知的微绒、细孔、轻微色斑或主题对应的真实触感；背景退成明亮洁净的居家日光空间，浅景深让远处器物、布面纹样、绿植与窗边高光化成柔和光斑，只留下温柔的季节气息，不抢主物。信息层使用大面积纯白文字压在上半部和左侧空域，主标题采用高反差、圆润端点、略带手写温度的日系明朝感字形，字距宽松，行间留出呼吸，标题可横向展开并与主物形成上下错位的平衡；辅助短句缩小成轻快的手写体，沿左侧空白分两行停顿。顶部加入细白线手绘括号或气泡线，底部角落放一个低饱和粉雾色或主题派生浅色圆形贴纸，贴纸边缘像手画白描圈，内部用松散手写字。色彩按主题派生：背景保持高明度、低饱和、干净偏暖的乳白与浅灰作为主场，主物承担最鲜明但不刺眼的季节色，承托面使用温暖天然浅色作中间层，绿植或主题小点缀只作为少量清新亮色；整体光线为从侧后方漫入的高键柔光，阴影极浅、反差低、空气透明。避免硬质商业棚拍、厚重暗调和复杂装饰，让文字像贴在照片里的轻声推荐，主物像刚被阳光照亮的当季好物。\n\n\n——————\n推荐用途: 社交媒体手作烘焙食帖\n主题元素: 饱满全麦欧包+粗纹亚麻布+原木切割板\n色彩细节: 焦糖深棕+奶白+暖橙+午后低饱和暖阳\n主视觉差异: 中心放大面包主体+顶部横向排版字组+后侧黄油碟虚化+竖版 3:4",
@@ -817,8 +813,8 @@
       "record_id": "recvsnQJCUOPcT"
     },
     {
-      "number": "CA-034",
-      "category": "内容创作",
+      "number": "PA-080",
+      "category": "产品展示",
       "category_id": "CA",
       "title": "柔光拍摄 x 产品美图",
       "prompt": "围绕任意主题对象生成清爽生活广告视觉：画面先由近距离、柔软饱满的主题主物承担视觉重量，主物放在带有自然纹理的浅色手作承托面上，前景清晰、边缘细腻，表面保留可感知的微绒、细孔、轻微色斑或主题对应的真实触感；背景退成明亮洁净的居家日光空间，浅景深让远处器物、布面纹样、绿植与窗边高光化成柔和光斑，只留下温柔的季节气息，不抢主物。信息层使用大面积纯白文字压在上半部和左侧空域，主标题采用高反差、圆润端点、略带手写温度的日系明朝感字形，字距宽松，行间留出呼吸，标题可横向展开并与主物形成上下错位的平衡；辅助短句缩小成轻快的手写体，沿左侧空白分两行停顿。顶部加入细白线手绘括号或气泡线，底部角落放一个低饱和粉雾色或主题派生浅色圆形贴纸，贴纸边缘像手画白描圈，内部用松散手写字。色彩按主题派生：背景保持高明度、低饱和、干净偏暖的乳白与浅灰作为主场，主物承担最鲜明但不刺眼的季节色，承托面使用温暖天然浅色作中间层，绿植或主题小点缀只作为少量清新亮色；整体光线为从侧后方漫入的高键柔光，阴影极浅、反差低、空气透明。避免硬质商业棚拍、厚重暗调和复杂装饰，让文字像贴在照片里的轻声推荐，主物像刚被阳光照亮的当季好物。\n\n\n——————\n社交用途: 咖啡店春季新品海报\n内容方向: 当季草莓慕斯+手作陶盘+新鲜薄荷叶点缀\n配色重点: 冰蓝+银灰+淡粉+高亮冷感清晨光\n主视觉重心: 右下前景特写切边+左侧大面积留白标题+竖版 3:4",
@@ -1158,8 +1154,8 @@
       "record_id": "recvul2jgxiror"
     },
     {
-      "number": "BV-002",
-      "category": "品牌视觉",
+      "number": "PA-077",
+      "category": "产品展示",
       "category_id": "BV",
       "title": "无文字珠宝广告海报",
       "prompt": "【总纲 · ROLE】\n为虚构奢华珠宝活动「MARIS VEIL」创作一张超高端、无文字珠宝广告海报：\n珠宝是唯一主角，人物是优雅的活体框架，海洋是神话化场域。\n画面仅由「产品 × 光线 × 海洋」承载全部信息，不出现任何排版、标志、水印或图形元素。\n\n【层级优先级 · HIERARCHY】（自高到低，严格遵守）\n1. 前景手部珠宝 —— 绝对主角，观众第一眼读到之物，100% 视觉焦点\n2. 中景人物 —— 活体框架，平静克制，仅作衬托\n3. 背景海天 —— 纯净场域，极简空旷\n4. 其余一切 —— 删除（非必需配饰、多余珠宝、杂乱元素一律不出现）\n\n【机位与构图 · COMPOSITION】\n- 低海面机位，几乎触及水线，微仰角望向极简天空\n- 前景：一只伸展的手占满近镜、向观众递出；解剖精确、指缝自然分离、纪念碑式尺度；\n  手部近缘可轻微光学柔焦，但主角戒指轮廓与宝石高光必须锐利、可读、奢华\n- 中景：成年东亚女性居中，湿短黑发自然贴脸，平静直视镜头\n- 背景：深邃海洋蓝、微妙地平线、明亮正午光线、最小飞溅\n\n【主角产品 · PRODUCT】\n- 一枚主导声明戒指 + 若干次要戒指\n- 设计语言：浪潮轮廓、潮汐弧线、海光折射、水滴形宝石镶嵌\n- 金属：精炼浅金 / 白金银 / 混合贵金属合金；可信厚度、抛光边缘、精确爪镶或微镶、\n  干净宝石安装逻辑、自然奢华重量\n- 颈部珠宝如出现：必须模糊且次要，前景手部珠宝是唯一商业焦点\n\n【材质精确性 · MATERIAL】（Transit 级）\n- 金属：清脆边缘高光、直射阳光下的微小反射闪光\n- 宝石：真实深度、真实折射、精确镶嵌几何\n- 手部：真实湿肤微纹理、水珠、指节结构、指关节定义、阳光下微妙皮肤半透明\n- 水体：深邃半透明蓝、表面张力、锐利飞溅冠、明亮悬浮水滴、折射扭曲、\n  环绕手指与戒指的清晰水体密度变化\n- 湿发：自然贴合额头、脸颊与颈部，不凌乱、不人工\n\n【美学克制 · RESTRAINT】（Port 级）\n- 画廊式收藏感，而非繁忙美妆拍摄\n- 只保留三个层级：前景手与主戒 / 中景面部与上身 / 背景海天\n- 削减飞溅噪音、移除所有非必需配饰、抑制一切多余珠宝，让构图呼吸\n\n【氛围 · ATMOSPHERE】\n- 神话正午海洋：深邃钴蓝与蓝绿，开阔海的神圣深度，而非海滩明信片\n- 硬朗正午日光下，色彩暗示盐分、神圣与元素宏伟\n- 女性如同从传奇正午海洋中升起，而非随意时尚游泳\n\n【光线 · LIGHTING】\n- 强烈自然头顶正午阳光\n- 水与金属上强烈镜面行为：水滴与戒指边缘的清脆高光、脸部与手指的干净阴影定义\n- 水面向上反弹破碎移动反射至手部下方与锁骨\n\n【色彩方向 · COLOR】（60 / 30 / 10）\n- 60% 神话深邃海洋蓝、钴蓝、蓝绿海影\n- 30% 发光古铜皮肤、银白闪耀、透明水高光\n- 10% 黑色湿发、宝石闪光、浅贵金属光泽\n- 整体观感：元素般、神圣、编辑级、精英\n\n【设计意图 · INTENT】\n- 伸展的手 = 邀请 + 从海洋中浮现的遗物\n- 传达独特性与神话感；产品、光线与海洋承担全部叙事\n\n【渲染风格 · STYLE】\n超照片级奢华珠宝广告 · 无文字 · 水位级电影构图 · 前景手部主角镜头 ·\n深邃神话正午海洋调色板 · 高定海洋戒指 · 成年东亚编辑模特 ·\n极端材质现实主义 · 精炼 Port 极简主义 · Transit 级珠宝与水细节 · 世界级商业品质\n\n【负面提示词 · NEGATIVE】\n可读文字、标志、标题、水印、签名、排版叠加、多余手指、缺失手指、融合手指、\n肿胀手部、畸形手部、破损戒指几何、扭曲解剖、塑料皮肤、卡通水、\n海滩明信片色彩、浑浊海洋、低细节珠宝、假宝石光泽、破损反射、杂乱背景、\n沉重飞溅混乱、低端时尚目录外观、低分辨率水滴、扭曲脸部、凌乱配饰",
@@ -2284,8 +2280,8 @@
       "record_id": "reczz28Itdqhkmth"
     },
     {
-      "number": "NA-001",
-      "category": "无匹配类别",
+      "number": "PA-082",
+      "category": "产品展示",
       "category_id": "NA",
       "title": "零食品牌「ZESTIKO」",
       "prompt": "生成一张 4:5 竖版生活方式广告海报成品图，品牌为虚构零食品牌「ZESTIKO」。核心产品：真实的草绿色可重复密封袋——ZESTIKO Honey Mustard Roasted Chickpeas，必须是全画面最清晰、最抢眼的物体。▎场景与构图- 场景：春日午后公园草坪野餐，从野餐垫低机位、中广角镜头拍摄。- 中景：一个约 8 岁的快乐孩子盘腿坐在格纹野餐垫上，穿白色 polo 衫（草绿色小刺绣）、卡其短裤、 barefoot；身体微微前倾。- 动作：孩子大笑看向镜头，一只手将包装袋举近镜头；握持自然可信、五指结构正确。- 产品位置：左中前景，约占画面 1/4，完整展示正面、顶部密封条和下边角。▎包装设计- 草绿色软膜、密封边、可重复密封顶、指下轻微褶皱、厚度正确、细腻缎面反光。- 标志：紧凑白色徽章配小蜜蜂图案；仅印刷三行文字：\"ZESTIKO\"、\"ROASTED CHICKPEAS\"、\"HONEY MUSTARD\"。- 正面下方放一小簇写实调味鹰嘴豆照片；禁止营养或健康宣称。▎食物与道具- 木盘中央：浅木碗装满烤鹰嘴豆，每颗圆润微裂、覆金黄蜂蜜芥末光泽，碗边散落 3-4 颗，与包装图案一致。- 周围：柠檬片、小雏菊、格纹餐布一角；右后方虚化野餐篮与一瓶柠檬水。- 禁止多余人物、多余产品、杂物。▎文字排版- 左上天空留白，三行英文主标题：  SUNNY DAYS  TASTE LIKE  SNAP- 前两行深橄榄绿手写体；\"SNAP\" 最大、蜂蜜金色；圆润字形、奶油描边、少量手绘小装饰；跟随透视、清晰不遮挡。- 左下：蜂蜜色小笔刷形上写 \"FIND YOUR GOLDEN SNAP\"；下方奶油色胶囊标签只写 \"ZESTIKO • HONEY MUSTARD\"。- 禁止零售商 Logo、网址、多余标语。▎光线与色彩- 斑驳午后阳光透过树叶洒落，柔和逆光在产品上形成金色轮廓光。- 色彩层级：草绿包装第一 → 草坪与木色第二 → 奶白天空第三 → 深橄榄绿字体对比；层次不死黑。- 氛围：春日活力、自然、开胃。▎质感与规范- 高级商业产品摄影 × 自然生活方式摄影：真实皮肤、布料、包装印刷、食物质感、柔和景深、干净合成。- 儿童人体结构自然、符合年龄；文字拼写完全一致；禁止真实人名、健康宣称、Logo、网址、杂物。",
@@ -2301,8 +2297,8 @@
       "record_id": "reczz28ItfG4ddtT"
     },
     {
-      "number": "BV-008",
-      "category": "品牌视觉",
+      "number": "CA-071",
+      "category": "内容创作",
       "category_id": "BV",
       "title": "实景照片 + 高饱和撞色插画",
       "prompt": "【输入变量】$PHOTO = 本地上传图片（唯一内容来源）【角色】你是一名孟菲斯风格插画师，擅长「实景照片 + 高饱和撞色插画」记忆卡设计。【任务】仅以 $PHOTO 为内容来源，生成竖版 3:4 记忆卡。保留主体、数量、姿态、视角、空间关系与场景逻辑，不重新设计，不添加无关元素。【布局】- 上下各 50% 横区。- 上半区：保留照片原貌，自然裁切，不拉伸不镜像，轻编辑式调色。- 下半区：奶白手工纸背景，插画居中横向，占下半区宽 63-67%，四周大留白。【场景转译】- 保留最易辨认的主体、结构、物件、视角、景深、关键位置。- 去除微杂物、摄影质感、反光与复杂阴影。- 简化为大胆几何色块 + 纤细手绘线。- 人物动物靠轮廓、姿态、发型毛发、服装颜色辨认，面部可简化。- 线条可轻微晃动错位，场景必须可辨认。【插画风格】- 孟菲斯复古波普风：活泼、俏皮、几何感强。- 细速写线结合大面积高饱和平涂色块，画面干净大胆、略带笨拙趣味。- 避免写实渲染。【色彩】- 从 $PHOTO 提取 5-6 个代表性颜色，重释为高饱和撞色组合：珊瑚橙、明黄、电光蓝绿、芭比粉、正红、奶白。- 平涂填充，相邻色块强对比，主体与层次清晰分离。- 允许少量原色撞色点缀，禁止渐变、高光釉感、3D。【质感】- 丝网印刷 + 色粉质感：纸张透出感、细腻颗粒、轻微颜料不均、套印偏移、磨损边缘。- 像复古杂志里的彩色插画页：明亮、快乐、可收藏。【排版】- 插画下方恰好两行简短英文，呼应情绪/地点/瞬间，小号复古衬线，左对齐；无法清晰渲染则留白。无其他可读文字。【清理】移除手机 UI、字幕、截图痕迹、界面控件；不臆造场景道具。【负面约束】不做大幅版面改动；不增减主要主体；不要写实、水彩、动漫、漫画、矢量剪贴画、油画、厚涂、3D、Logo、水印、黑边、UI、无关装饰。",
@@ -2335,8 +2331,8 @@
       "record_id": "reczz28ItjKwjQmn"
     },
     {
-      "number": "PA-069",
-      "category": "产品展示",
+      "number": "CA-072",
+      "category": "内容创作",
       "category_id": "PA",
       "title": "实景照片+明亮生活图",
       "prompt": "【场景设定】竖版 3:4「实景照片 + 明亮生活化插画」记忆卡。场景：清晨的小阳台，一人穿着家居服拿着浇水壶给一排绿植浇水，有龟背竹、多肉和小盆薄荷，阳光洒在瓷砖地面和藤编椅上，旁边放着一杯冒着热气的咖啡。【布局】- 上下各 50% 横区。- 上半区：真实摄影质感，自然裁切，保留晨光通透感，轻调色。- 下半区：奶油白手工纸背景，插画居中横向，占下半区宽 63-67%，大留白。【插画风格】- 奶油童趣编辑风：圆润柔和几何色块 + 纤细手绘线，略带笨拙的手工温度。- 画面柔软、干净、有呼吸感，做减法，避免写实渲染。- 人物靠轮廓、姿态与发型辨认，植物靠叶片形状辨认，面部可简化。【色彩】- 奶油糖果色系叠加一点植物绿：奶杏、燕麦米、嫩叶绿、蜜桃粉、暖黄，低饱和高明度。- 平涂填充，层次柔和清晰，禁止渐变、高光、3D。【质感】- 蜡笔 + 色粉质感：纸张透出感、细腻颗粒、颜料不均、磨损边缘。- 像温暖旧童书的一页：柔软、怀旧、可收藏。【排版】- 插画下方恰好两行简短英文，呼应清晨/植物/慢生活，小号复古衬线，左对齐；无法清晰渲染则留白。无其他可读文字。【负面约束】不增减主要主体；不要写实、水彩、动漫、漫画、矢量剪贴画、油画、厚涂、3D、Logo、水印、黑边、UI、无关装饰。",
@@ -2369,8 +2365,8 @@
       "record_id": "reczz28ItmGmQFb0"
     },
     {
-      "number": "CA-070",
-      "category": "内容创作",
+      "number": "PA-081",
+      "category": "产品展示",
       "category_id": "CA",
       "title": "奢华户外跨界时尚大片，New Balance x Gucci 技术探索",
       "prompt": "[Theme & Brand]: Luxury outdoor crossover editorial, New Balance x Gucci Technical Exploration.[Camera Angle & Perspective]: Heroic low-angle shot, camera tilted upward at 45 degrees focusing on the sharp three-quarter jawline, side profile, and oversized collar architecture.[Subject & Pose]: Korean female model gazing confidently upward towards the horizon with chin raised, using gloved fingers to hold and adjust the high technical storm collar.[Apparel & Styling]: Oversized olive-green hooded tech-prep storm parka with luxury jacquard monogram taped trim, high-collar storm flap, wet-look sleek side-swept hair, sculpted bronze cheekbones.[Product Focus]: Tactile waterproof ripstop fabric weave, custom gold metal hardware, laser-cut bonded seam taping, subtle dual-tone luxury monogram panels on the jacket.[Background & Scene]: Deep split-tone forest green and crimson red studio wall with repeating debossed luxury monogram patterns, subtle atmospheric haze.[Typography & Layout]: Top header replaced with elegant high-fashion serif font \"TECH-PREP PARKA\" in antique gold-foil finish, refined subtitle: \"Gucci Collaboration Edition\".[Lighting & Specs]: Low-key dramatic rim light carving out jawline and shoulder silhouette, 85mm portrait telephoto lens, f/2.2, razor-sharp focus on facial features and fabric grain, 8K photorealistic.Negative prompt: flat lighting, low quality, cheap synthetic look, distorted face, bad anatomy, cartoon, 3D CGI gloss, blur, oversaturated.",
