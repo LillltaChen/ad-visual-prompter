@@ -41,10 +41,10 @@ def main() -> None:
   <details><summary>查看完整提示词</summary><div class="prompt">{prompt_esc}</div>{tpl_block}{link}</details>
 </div>""")
 
-    tabs = "".join(
+    tabs = '<button class="tab" data-filter="all">全部（{}）</button>'.format(len(items)) + "".join(
         f'<button class="tab{" active" if p == "PA" else ""}" data-filter="{p}">{p} · {c["name"]}（{c["count"]}）</button>'
         for p, c in cats.items()
-    ) + '<button class="tab" data-filter="all">全部（{}）</button>'.format(len(items))
+    )
 
     html_doc = f"""<html style="margin:0;padding:0;">
 <title>AI 广告视觉提示词库 · 编号画廊</title>
