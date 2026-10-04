@@ -94,7 +94,7 @@ def main() -> None:
     <div style="max-width:1180px;margin:0 auto;">
       <div class="badge" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#93c5fd;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 14px;">Ad Visual Prompter</div>
       <h1 style="margin:14px 0 6px;font-size:30px;font-weight:700;letter-spacing:-.01em;">AI 广告视觉提示词库</h1>
-      <p style="margin:0;font-size:14px;color:#c7d4f0;">{total} 条经实测的竖版广告生图提示词 · 点击卡片查看完整提示词 · <a href="https://feishu.doubao.com/docx/DwS4d4vY7oDfhgxzl97c5ngR6Nd" target="_blank" rel="noopener" style="color:#93c5fd;font-weight:600;text-decoration:underline;">使用说明（飞书）↗</a> · 来源：飞书多维表格「使用 Image 2.5」@ AI 广告视觉 作品合集</p>
+      <p style="margin:0;font-size:14px;color:#c7d4f0;">{total} 条经实测的竖版广告生图提示词 · 点击卡片查看完整提示词 · <a href="https://feishu.doubao.com/docx/DwS4d4vY7oDfhgxzl97c5ngR6Nd" target="_blank" rel="noopener" style="color:#93c5fd;font-weight:600;text-decoration:underline;">使用说明（飞书）↗</a> · 来源：<a href="https://ocna1kutbggv.feishu.cn/wiki/J4XPw3GH8ip2YPkY0WyciwPVnfe?table=tbl6yGW3R73TjL7D&amp;view=vewdBdbaKR" target="_blank" rel="noopener" style="color:#93c5fd;font-weight:600;text-decoration:underline;">飞书多维表格「使用 Image 2.5」@ AI 广告视觉 作品合集</a></p>
       <div class="stats" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;">{stats}</div>
     </div>
   </div>
@@ -223,7 +223,7 @@ def main() -> None:
   function apply(){{
     var kw=search.value.trim().toLowerCase();
     // 编号模式：输入形如 pa-001 / pa001 / 001 时全局匹配编号，忽略当前分类
-    var m=kw.match(/^([a-z]{{1,2}})?\-?(\d{{1,3}})?$/);
+    var m=kw.match(/^([a-z]{{1,2}})?-?(\d{{1,3}})?$/);
     var numMode=kw&&m&&(m[1]||m[2]);
     cards.forEach(function(c){{
       var ok;
